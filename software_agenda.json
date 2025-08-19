@@ -1,0 +1,112 @@
+{
+    "softwares": [
+        {
+            "nome": "LIMS Scarab",
+            "validade": "2028-01-25",
+            "ativacao": "177.220.86.26",
+            "usuario": "icmdb",
+            "senha": "molsoft",
+            "numero_licencas": "30",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Schrodinger",
+            "validade": "2026-08-08",
+            "ativacao": "177.220.86.30:27008",
+            "usuario": "root",
+            "senha": "byte@TRACK7268",
+            "numero_licencas": "25",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Graphpad Prism",
+            "validade": "2026-04-01",
+            "ativacao": "https://www.graphpad.com/",
+            "usuario": "tihub@uniamp.br",
+            "senha": "hdpg#$JNK492",
+            "numero_licencas": "25",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Snapgene",
+            "validade": "2025-10-14",
+            "ativacao": "https://www.snapgene.com/",
+            "usuario": "tihub@uniamp.br",
+            "senha": "wjcpsSEK6Lx4",
+            "numero_licencas": "10",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Certificados",
+            "validade": "2025-07-01",
+            "ativacao": "",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "1",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Geneious",
+            "validade": "2025-07-30",
+            "ativacao": "https://www.geneious.com/",
+            "usuario": "parruda@unicamp.br",
+            "senha": "m3KAqAXhWt",
+            "numero_licencas": "5 de 10",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Findmolecule",
+            "validade": "2026-06-15",
+            "ativacao": "http://findmolecule.com/",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "4",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Optisigns",
+            "validade": "2026-06-27",
+            "ativacao": "https://www.optisigns.com/",
+            "usuario": "tihub@uniamp.br",
+            "senha": "@TIcqmed#2024",
+            "numero_licencas": "1",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Protein Thermal Shift",
+            "validade": "Vitalício",
+            "ativacao": "thermofisher1.flexnetoperations.com",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "10",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Waters MassLynx",
+            "validade": "Vitalício",
+            "ativacao": "Chaves: /public/IT/programs/waters/Mass Lynx",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "2",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "ChemDraw",
+            "validade": "Vitalício",
+            "ativacao": "194F-C5CD-A648-7F50",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "2",
+            "renovacao": "sim"
+        },
+        {
+            "nome": "Adobe Creative Cloud",
+            "validade": "2025-05-23",
+            "ativacao": "adminconsole.adobe.com",
+            "usuario": "",
+            "senha": "",
+            "numero_licencas": "1",
+            "renovacao": "nao"
+        }
+    ]
+}

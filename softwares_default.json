@@ -1,0 +1,24 @@
+{
+    "softwares": [
+        {
+            "nome": "Microsoft Office",
+            "validade": "2026-12-01",
+            "ativacao": "Chave de acesso"
+        },
+        {
+            "nome": "Adobe Photoshop",
+            "validade": "2027-03-15",
+            "ativacao": "Servidor"
+        },
+        {
+            "nome": "AutoCAD",
+            "validade": "2025-11-20",
+            "ativacao": "Página de internet"
+        },
+        {
+            "nome": "Antivírus",
+            "validade": "2025-09-01",
+            "ativacao": "Chave de acesso"
+        }
+    ]
+}
