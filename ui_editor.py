@@ -388,12 +388,30 @@ class SoftwareEditor(tk.Tk):
         if not d:
             self.dialogs.show_error("Erro", "Data inválida. Use YYYY-MM-DD ou DD-MM-YYYY.")
             return
+        
+        numero_licencas = self.dialogs.ask_string("Adicionar", "Total de licenças:")
+        if not numero_licencas: 
+            return
 
         ativacao = self.dialogs.ask_string("Adicionar", "Modo de ativação:") or ""
+        if not ativacao: 
+            return
+
+        username = self.dialogs.ask_string("Adicionar", "Nome do usuário (Username):")
+        if not username: 
+            return
+        
+        renovacao = self.dialogs.ask_string("Adicionar", "Sofwtare será renovado? digite sim ou nao:")
+        if not renovacao: 
+            return
+
         self.data["softwares"].append({
             "nome": nome, 
-            "validade": to_iso_string(d), 
-            "ativacao": ativacao
+            "validade": to_iso_string(d),
+            "numero_licencas": numero_licencas,
+            "ativacao": ativacao,
+            "usuario": username,
+            "renovacao": renovacao
         })
         save_data(self.data)
         self.apply_filter()
@@ -411,9 +429,10 @@ class SoftwareEditor(tk.Tk):
         current_name = soft.get("nome", "")
         current_date = parse_date_iso(soft.get("validade", ""))
         current_date_br = to_br_string(current_date) if current_date else soft.get("validade", "")
+        current_num = soft.get("numero_licencas", "")
         current_ativ = soft.get("ativacao", "")
+        current_user = soft.get("usuario", "")
 
-        # Corrigido: usando 'initial' em vez de 'initialvalue'
         new_nome = self.dialogs.ask_string("Editar", "Nome do software:", initial=current_name)
         if new_nome is None: 
             return
@@ -427,13 +446,23 @@ class SoftwareEditor(tk.Tk):
             self.dialogs.show_error("Erro", "Data inválida.")
             return
         
+        new_num = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_num)
+        if new_num is None: 
+            return
+        
         new_ativacao = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_ativ)
         if new_ativacao is None: 
             return
-
+        
+        new_user = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_user)
+        if new_user is None: 
+            return
+        
         soft["nome"] = new_nome
         soft["validade"] = to_iso_string(d)
+        soft["numero_licencas"] = new_num
         soft["ativacao"] = new_ativacao
+        soft["usuario"] = new_ativacao
         save_data(self.data)
         self.apply_filter()
         self.status_var.set(f"Software '{new_nome}' atualizado com sucesso")
