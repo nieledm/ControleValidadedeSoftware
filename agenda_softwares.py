@@ -16,10 +16,11 @@ def check_expiration_and_alert():
             validade_date = datetime.datetime.strptime(software["validade"], "%Y-%m-%d").date()
             diff_days = (validade_date - today).days
 
-            if 0 <= diff_days <= 90:  # expira em até 3 meses
-                expiring_soon.append(software)
-            elif diff_days < 0:  # já venceu
-                expiring_soon.append(software)
+            if software.get("renovacao", "").lower() != "nao":
+                if 0 <= diff_days <= 90:  # expira em até 3 meses
+                    expiring_soon.append(software)
+                elif diff_days < 0:  # já venceu
+                    expiring_soon.append(software)
 
         except ValueError:
             print(f"Data inválida para o software: {software['nome']}")
@@ -29,7 +30,6 @@ def check_expiration_and_alert():
         for soft in expiring_soon:
             message += f"Software: {soft['nome']}\n"
             message += f"Validade: {soft['validade']}\n"
-            message += f"Modo de ativação: {soft['ativacao']}\n"
             message += "-------------------\n"
 
         root = tk.Tk()

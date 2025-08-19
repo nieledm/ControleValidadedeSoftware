@@ -394,13 +394,9 @@ class SoftwareEditor(tk.Tk):
             return
 
         ativacao = self.dialogs.ask_string("Adicionar", "Modo de ativação:") or ""
-        if not ativacao: 
-            return
 
         username = self.dialogs.ask_string("Adicionar", "Nome do usuário (Username):")
-        if not username: 
-            return
-        
+
         renovacao = self.dialogs.ask_string("Adicionar", "Sofwtare será renovado? digite sim ou nao:")
         if not renovacao: 
             return
@@ -446,17 +442,13 @@ class SoftwareEditor(tk.Tk):
             self.dialogs.show_error("Erro", "Data inválida.")
             return
         
-        new_num = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_num)
+        new_num = self.dialogs.ask_string("Editar", "Total de licenças:", initial=current_num)
         if new_num is None: 
             return
         
         new_ativacao = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_ativ)
-        if new_ativacao is None: 
-            return
         
-        new_user = self.dialogs.ask_string("Editar", "Modo de ativação:", initial=current_user)
-        if new_user is None: 
-            return
+        new_user = self.dialogs.ask_string("Editar", "Nome do usuário (username):", initial=current_user)
         
         soft["nome"] = new_nome
         soft["validade"] = to_iso_string(d)
