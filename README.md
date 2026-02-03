@@ -183,7 +183,6 @@ O arquivo software_agenda.json é criado automaticamente e segue o formato:
 }
 ```
 
-
-###📌 Finalidade
+### 📌 Finalidade
 
 Ferramenta desenvolvida para auxiliar no controle e gerenciamento de ativos de software do CQMED.
