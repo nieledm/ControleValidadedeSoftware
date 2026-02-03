@@ -70,6 +70,7 @@ ControleValidadeDeSoftware/
 ├── iniciar_agenda.bat    # Script para inicialização automática (Windows)
 ├── checked.png           # Ícone checkbox marcado
 └── unchecked.png         # Ícone checkbox desmarcado
+```
 
 
 ---
@@ -125,11 +126,11 @@ Para verificar manualmente softwares expirando:
 python agenda_softwares.py
 ```
 
-3️⃣ Inicialização Automática no Windows
+### 3️⃣ Inicialização Automática no Windows
 
 Para executar a verificação automaticamente ao iniciar o Windows:
 
-✔️ Passo 1 — Verifique o Caminho
+#### ✔️ Passo 1 — Verifique o Caminho
 
 Clique com botão direito em iniciar_agenda.bat
 
@@ -139,34 +140,35 @@ Confirme se o caminho para agenda_softwares.py está correto
 
 Salve o arquivo
 
-✔️ Passo 2 — Criar Atalho
+#### ✔️ Passo 2 — Criar Atalho
 
 Clique com botão direito no arquivo .bat e selecione:
 
 Criar atalho
 
-✔️ Passo 3 — Abrir Pasta de Inicialização
+#### ✔️ Passo 3 — Abrir Pasta de Inicialização
 
 Pressione Win + R
 
 Digite:
-
+```bash
 shell:startup
-
+```
 
 Pressione Enter
 
-✔️ Passo 4 — Mover Atalho
+#### ✔️ Passo 4 — Mover Atalho
 
 Arraste o atalho criado para a pasta aberta.
 
-✔️ Pronto!
+#### ✔️ Pronto!
 Agora o sistema executará automaticamente ao iniciar o Windows e exibirá alertas somente quando necessário.
 
-💾 Estrutura de Dados (JSON)
+### 💾 Estrutura de Dados (JSON)
 
 O arquivo software_agenda.json é criado automaticamente e segue o formato:
 
+```json
 {
   "softwares": [
     {
@@ -179,7 +181,9 @@ O arquivo software_agenda.json é criado automaticamente e segue o formato:
     }
   ]
 }
+```
 
-📌 Finalidade
+
+###📌 Finalidade
 
 Ferramenta desenvolvida para auxiliar no controle e gerenciamento de ativos de software do CQMED.
