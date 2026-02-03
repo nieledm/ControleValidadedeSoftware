@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox, ttk
 from data_handler import load_data, save_data
-import datetime
+import datetime, webbrowser
 
 BR_FMT = "%d-%m-%Y"
 ISO_FMT = "%Y-%m-%d"
@@ -223,6 +223,15 @@ class SoftwareEditor(tk.Tk):
         self.tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
         self.tree.bind("<Button-1>", self.toggle_checkbox)
+        self.tree.bind("<Button-3>", self.show_context_menu) # Botão direito
+        self.tree.bind("<Double-1>", self.on_double_click)   # Duplo clique
+
+
+        self.tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+                        
+        # Cria o menu de contexto uma vez para reusar
+        self.context_menu = tk.Menu(self, tearoff=0)
+        self.context_menu.add_command(label="Copiar", command=self.copy_selection)
     
     def _create_buttons(self):
         """Cria os botões CRUD"""
@@ -244,6 +253,7 @@ class SoftwareEditor(tk.Tk):
     def load_tree(self):
         self.tree.delete(*self.tree.get_children())
         today = datetime.date.today()
+        
         for soft in self.filtered_data:
             nome = soft.get("nome", "")
             iso_str = soft.get("validade", "")
@@ -252,25 +262,29 @@ class SoftwareEditor(tk.Tk):
             username = soft.get("usuario", "")
             renovar = soft.get("renovacao", "")
 
-            d = parse_date_iso(iso_str)
-            if d is None:
-                validade_br = iso_str
-                dias = ""
-                tag = ""
+            # Lógica para Vitalício
+            if iso_str.lower() == "vitalício":
+                validade_br = "Vitalício"
+                dias = "∞"
+                tag = "ok" # Fica verde
             else:
-                validade_br = to_br_string(d)
-                dias = (d - today).days
-                if dias < 0:
-                    tag = "expired"
-                elif dias <= 90:
-                    tag = "warn"
+                d = parse_date_iso(iso_str)
+                if d is None:
+                    validade_br = iso_str
+                    dias = "?"
+                    tag = ""
                 else:
-                    tag = "ok"
+                    validade_br = to_br_string(d)
+                    dias = (d - today).days
+                    if dias < 0:
+                        tag = "expired"
+                    elif dias <= 90:
+                        tag = "warn"
+                    else:
+                        tag = "ok"
 
-            # Escolhe a imagem do checkbox
             img = self.checked_img if renovar == "sim" else self.unchecked_img
 
-            # Insere (imagem na coluna #0)
             item_id = self.tree.insert(
                 "", "end",
                 text="",
@@ -342,16 +356,26 @@ class SoftwareEditor(tk.Tk):
         self.load_tree()
 
     def apply_sort(self):
+        def get_sort_date(s):
+            val = s.get("validade", "")
+            if val.lower() == "vitalício":
+                return datetime.date(9999, 12, 31) # Data futura longínqua
+            return parse_date_iso(val) or datetime.date.min
+
         if self.sort_key == "date":
             self.filtered_data.sort(
-                key=lambda s: (parse_date_iso(s.get("validade", "")) or datetime.date.max),
+                key=get_sort_date,
                 reverse=not self.sort_asc
             )
         elif self.sort_key == "days":
             today = datetime.date.today()
             def days_key(s):
-                d = parse_date_iso(s.get("validade", ""))
-                return (d - today).days if d else float("inf")
+                val = s.get("validade", "")
+                if val.lower() == "vitalício":
+                    return 999999 # Número alto de dias
+                d = parse_date_iso(val)
+                return (d - today).days if d else -999999
+            
             self.filtered_data.sort(key=days_key, reverse=not self.sort_asc)
 
     def sort_by_date(self):
@@ -372,6 +396,66 @@ class SoftwareEditor(tk.Tk):
         self.apply_sort()
         self.load_tree()
     
+    # ================================
+    # Interatividade (Copiar e Links)
+    # ================================
+
+    def show_context_menu(self, event):
+        """Mostra menu 'Copiar' ao clicar com botão direito"""
+        item = self.tree.identify_row(event.y)
+        col = self.tree.identify_column(event.x)
+        
+        if item and col:
+            # Seleciona a linha visualmente
+            self.tree.selection_set(item)
+            # Guarda onde clicou para usar na função de copiar
+            self.clicked_item = item
+            self.clicked_col = col
+            self.context_menu.post(event.x_root, event.y_root)
+
+    def copy_selection(self):
+        """Copia o conteúdo da célula clicada para o clipboard"""
+        try:
+            # Pega o índice da coluna (ex: '#1' -> 0 se subtrair 1, mas lembre da coluna #0 oculta/imagem)
+            # As colunas de dados values=(...) começam tecnicamente no índice 0 do displaycolumns
+            # Mas o identify_column retorna #1 para a primeira coluna visível de dados se #0 for a tree
+            
+            col_id = int(self.clicked_col.replace('#', '')) - 1 
+            # Nota: Sua coluna #0 é a imagem. Então #1 é "Nome". 
+            # Os values=(Nome, Validade...) correspondem a indices 0, 1...
+            
+            values = self.tree.item(self.clicked_item, "values")
+            
+            if 0 <= col_id < len(values):
+                text = values[col_id]
+                self.clipboard_clear()
+                self.clipboard_append(text)
+                self.status_var.set(f"Copiado: {text}")
+        except Exception as e:
+            print(f"Erro ao copiar: {e}")
+
+    def on_double_click(self, event):
+        """Abre link no navegador se a célula começar com http"""
+        region = self.tree.identify("region", event.x, event.y)
+        if region != "cell": 
+            return
+
+        item = self.tree.identify_row(event.y)
+        col = self.tree.identify_column(event.x)
+        
+        if item and col:
+            col_id = int(col.replace('#', '')) - 1
+            values = self.tree.item(item, "values")
+            
+            if 0 <= col_id < len(values):
+                text = values[col_id]
+                if text.startswith("http://") or text.startswith("https://"):
+                    webbrowser.open(text)
+                    self.status_var.set(f"Abrindo link: {text}")
+                else:
+                    # Opcional: Se não for link, tenta copiar ou editar
+                    pass
+                
     # ============================
     # CRUD
     # ============================

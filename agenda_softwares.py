@@ -12,6 +12,11 @@ def check_expiration_and_alert():
     expiring_soon = []
 
     for software in data["softwares"]:
+        validade_str = software.get("validade", "")
+
+        if not validade_str or validade_str.lower() == "vitalício":
+            continue
+        
         try:
             validade_date = datetime.datetime.strptime(software["validade"], "%Y-%m-%d").date()
             diff_days = (validade_date - today).days
@@ -21,6 +26,9 @@ def check_expiration_and_alert():
                     expiring_soon.append(software)
                 elif diff_days < 0:  # já venceu
                     expiring_soon.append(software)
+            
+            
+            
 
         except ValueError:
             print(f"Data inválida para o software: {software['nome']}")

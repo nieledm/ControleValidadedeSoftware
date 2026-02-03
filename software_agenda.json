@@ -26,9 +26,9 @@
         },
         {
             "nome": "Snapgene",
-            "validade": "2025-10-14",
-            "ativacao": "https://www.snapgene.com/",
-            "usuario": "tihub@uniamp.br",
+            "validade": "2026-10-14",
+            "ativacao": "https://www.snapgene.com/account",
+            "usuario": "tihub@unicamp.br",
             "numero_licencas": "10",
             "renovacao": "sim"
         },
@@ -38,14 +38,6 @@
             "ativacao": "",
             "usuario": "",
             "numero_licencas": "1",
-            "renovacao": "nao"
-        },
-        {
-            "nome": "Geneious",
-            "validade": "2025-07-30",
-            "ativacao": "https://www.geneious.com/",
-            "usuario": "parruda@unicamp.br",
-            "numero_licencas": "5 de 10",
             "renovacao": "nao"
         },
         {
@@ -70,7 +62,7 @@
             "ativacao": "thermofisher1.flexnetoperations.com",
             "usuario": "",
             "numero_licencas": "10",
-            "renovacao": "sim"
+            "renovacao": "nao"
         },
         {
             "nome": "Waters MassLynx",
@@ -78,7 +70,7 @@
             "ativacao": "Chaves: /public/IT/programs/waters/Mass Lynx",
             "usuario": "",
             "numero_licencas": "2",
-            "renovacao": "sim"
+            "renovacao": "nao"
         },
         {
             "nome": "ChemDraw",
@@ -86,13 +78,13 @@
             "ativacao": "194F-C5CD-A648-7F50",
             "usuario": "",
             "numero_licencas": "2",
-            "renovacao": "sim"
+            "renovacao": "nao"
         },
         {
             "nome": "Adobe Creative Cloud",
             "validade": "2025-05-23",
             "ativacao": "adminconsole.adobe.com",
-            "usuario": "",
+            "usuario": "adminconsole.adobe.com",
             "numero_licencas": "1",
             "renovacao": "nao"
         }
